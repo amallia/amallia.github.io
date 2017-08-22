@@ -7,5 +7,11 @@ jQuery(document).ready(function(e) {
         }, 1e3)
     })
 });
-
-
+// Retrieve latest version of my CV
+jQuery(document).ready(function () {
+   $.getJSON("https://api.github.com/repos/amallia/cv-antoniomallia/releases").done(function (json) {
+        var release = json[0];
+        var downloadURL = release.assets[0].browser_download_url;
+        $("#resume-link").attr("href", downloadURL);
+   });
+});
