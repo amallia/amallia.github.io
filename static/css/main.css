@@ -1,5 +1,9 @@
 /* Main page with stikky-footer
 -------------------------------------------------- */
+@font-face {
+    font-family: RockSalt;
+    src: url(../font/RockSalt.ttf) format('truetype');
+}
 html,
 body {
   height: 100%;
@@ -10,7 +14,7 @@ body {
 }
 /* Wrapper for page content to push down footer */
 #wrap {
-  padding-bottom: 50px;	
+  padding-bottom: 50px;
   min-height: 100%;
   height: auto;
   /* Negative indent footer by its height */
@@ -21,7 +25,9 @@ body {
 
 /* Navbar
 -------------------------------------------------- */
-
+.handwritten {
+  font-family: 'RockSalt';
+}
 .navbar-static-top {
   margin-bottom: 10px;
 }
@@ -87,10 +93,14 @@ body {
 /* Custom page CSS
 -------------------------------------------------- */
 
+
 .container {
   width: auto;
   max-width: 800px;
   text-align: center;
+}
+.wide-container {
+  max-width: none;
 }
 .container .text-muted {
   margin: 20px 0;
@@ -164,7 +174,7 @@ body {
   font-size: 18px;
 }
 
-/* Footer 
+/* Footer
 -------------------------------------------------- */
 
 .footer {
@@ -180,5 +190,5 @@ div.footer{
 /*.footer {
   height: 50px;
   padding-bottom: 15px;
-  
+
 }*/
