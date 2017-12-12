@@ -1,2 +1,2 @@
 User-agent: *
-Disallow: /
+Sitemap: https://www.antoniomallia.it/sitemap.xml
