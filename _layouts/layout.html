@@ -4,15 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	  <meta name="author" content="{{ site.author }}" />
-    <meta name="description" content="{{ site.description }}">
     <link rel="icon" type="image/x-icon" href="{{ site.baseurl }}static/img/favicon.ico">
-
-    {% if page.title %}
-      <title>{{ page.title }}</title>
-    {% else %}
-      <title>{{ site.title }}</title>
-    {% endif %}
 
     <!-- Bootstrap -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"
@@ -26,11 +18,11 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-	<!-- Custom styles for this template -->
+  	<!-- Custom styles for this template -->
     <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}static/css/main.css" />
-	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,200bold,400old" />
-	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
-  <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}static/css/syntax.css" />
+  	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,200bold,400old" />
+  	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}static/css/syntax.css" />
     <!-- Google Analytics -->
     {% include analytics.html %}
     {% seo %}
