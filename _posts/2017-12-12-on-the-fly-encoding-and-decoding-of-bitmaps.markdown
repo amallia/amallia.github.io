@@ -20,7 +20,7 @@ Being able to reduce their memory usage means being able to store more data or, 
 The technique I would like to discuss sets the base for more complex ones, which I will try to cover in a future blog post. The most important property of the following compression algorithm is the ability to query the bitmap without fully decompressing it. Considering the set we saw in the previous example, this would be extremely appealing, as we would be able to tell if an element *i* is present or not just by looking at the bit at position *i*.  
 The compression I am going to present falls into the category of data structures called **succinct data structures**, which allow efficient query operations while using an amount of space that is close to the information-theoretic lower bound.
 
-Now we split the bitmap into fixed-length blocks. In the previous example, the bitmap was 24-bit long, if we split it into blocks of 6-bits each we obtain four distinct blocks.
+Now we split the bitmap into fixed-length blocks. In the previous example, the bitmap was 24-bit long, if we split it into blocks of 4-bits each we obtain four distinct blocks.
 
 <center><kbd>1010</kbd> <kbd>0000</kbd> <kbd>0001</kbd> <kbd>0000</kbd> <kbd>0001</kbd> <kbd>1000</kbd></center>
 
