@@ -12,7 +12,7 @@ image: /uploads/binary-code.png
 
 A bitmap, also referred to as bit-vector or bit-array, is a sequence of *0s* and *1s* which typically encodes a more complex object. 
 
-A common example of this is a set of numbers where each of the elements are indicated as set bits in a bitmap of length equal to the greatest element plus one (as we count from zero), also commonly referred as the *universe*. As an example, the set `{3,12,21,4,23}` can be represented as <kbd>101000000001000000011000</kbd>, where - counting right to left - we have the 1-bit at the corresponding positions of the elements in the initial set.
+A common example of this is a set of numbers where each of the elements are indicated as set bits in a bitmap of length equal to the greatest element plus one (as we count from zero), also commonly referred as the *universe*. As an example, the set `{3,5,21,4,23}` can be represented as <kbd>101000000001000000011000</kbd>, where - counting right to left - we have the 1-bit at the corresponding positions of the elements in the initial set.
 
 The importance of bitmaps is irrefutable, this is why I recently started investigating which are the most effective techniques used to compress them. 
 Being able to reduce their memory usage means being able to store more data or, possibly, fit it in a lower level of the cache hierarchy which immediately translates to faster access. 
@@ -20,14 +20,14 @@ Being able to reduce their memory usage means being able to store more data or, 
 The technique I would like to discuss sets the base for more complex ones, which I will try to cover in a future blog post. The most important property of the following compression algorithm is the ability to query the bitmap without fully decompressing it. Considering the set we saw in the previous example, this would be extremely appealing, as we would be able to tell if an element *i* is present or not just by looking at the bit at position *i*.  
 The compression I am going to present falls into the category of data structures called **succinct data structures**, which allow efficient query operations while using an amount of space that is close to the information-theoretic lower bound.
 
-Now we split the bitmap into fixed-length blocks. In the previous example, the bitmap was 24-bit long, if we split it into blocks of 4-bits each we obtain four distinct blocks.
+Now we split the bitmap into fixed-length blocks. In the previous example, the bitmap was 24-bit long, if we split it into blocks of 3-bits each we obtain four distinct blocks.
 
-<center><kbd>1010</kbd> <kbd>0000</kbd> <kbd>0001</kbd> <kbd>0000</kbd> <kbd>0001</kbd> <kbd>1000</kbd></center>
+<center><kbd>101</kbd> <kbd>000</kbd> <kbd>000</kbd> <kbd>001</kbd> <kbd>000</kbd> <kbd>000</kbd> <kbd>111</kbd> <kbd>000</kbd></center>
 
  The idea is to code each block independently from the the others, using a pair of values *<C<sub>i</sub>,O<sub>i</sub>>* for the *i-th* block. 
  The first element of the pair is the **cardinality** of the block, also referred as population count or just *popcount*; while the latter is the **offset** in the table that contains all the distinct permutations (so combinations) of the bits in that block [^fn1].
 
-Let's say we want to encode the first block <kbd>1010</kbd>. Calculating *C* is trivial as we need to count the number of bits set to 1. This can also be done in hardware by most of the modern CPUs (I will come back to this topic again in the future), but for now, we can rely on the following naive implementation.
+Let's say we want to encode the first block <kbd>101</kbd>. Calculating *C* is trivial as we need to count the number of bits set to 1. This can also be done in hardware by most of the modern CPUs (I will come back to this topic again in the future), but for now, we can rely on the following naive implementation.
 
 {% highlight cpp %}
 size_t popcount(uint64_t n)
@@ -42,19 +42,16 @@ size_t popcount(uint64_t n)
 }
 {% endhighlight %}
 
-Now lets imagine we have a table containing all the $$\binom{4}{2} = 6$$ ordered permutations of the previous block. If we iterated over the rows of this table and stop when we reach the entry that matches our block, then we would have computed the offset for that block. 
-In our example, the offset of the block int the following table would be 4.
+Now lets imagine we have a table containing all the $$\binom{3}{2} = 3$$ ordered permutations of the previous block. If we iterated over the rows of this table and stop when we reach the entry that matches our block, then we would have computed the offset for that block. 
+In our example, the offset of the block in the following table would be 2.
 
 |-----------------|:-----------------:|
-| 0               | <kbd>0011</kbd> |
-| 1               | <kbd>0101</kbd> |
-| 2               | <kbd>0110</kbd> |
-| 3               | <kbd>1001</kbd> |
-| <mark>4</mark>  | <kbd>1010</kbd> |
-| 5               | <kbd>1100</kbd> |
+| 0               | <kbd>011</kbd> |
+| 1               | <kbd>101</kbd> |
+| <mark>2</mark>  | <kbd>110</kbd> |
 {:style="margin: auto;"}
 
-In this way we can encode our block with the two integers *C = 2* and *O = 4*.
+In this way we can encode our block with the two integers *C = 2* and *O = 2*.
 
 Whenever we would like to decode the block from the given *C* and *O* we need to select the appropriate table of combinations using *C* and then move to the index *O* of that table to retrieve the original representation.
 
@@ -73,7 +70,7 @@ There are two lucky cases where the cardinality gives us enough information to i
 
 In these two cases we can store the offset implicitly and so we would not sacrifice any extra space. For all the other possibilities we can always store the offset in $$\log_2\binom{b}{C}$$ bits.
 
-For instance, the original bitmap we used in the previous example used 24 bits of actual data in its uncompressed form. To store the cardinality of each block we would need 2 bits per block, for a total of 12 bits. Then, the block containing all-zeros is encoded implicitly, while for the block with *C = 1* needs 2 additional bits and, finally, 3 bits for the blocks with *C = 2*. This sums up to 21 bits used to represent our uncompressed 24-bit bitmap, with a saving of 3 bits or 12.5% of the initial size. 
+For instance, the original bitmap we used in the previous example used 24 bits of actual data in its uncompressed form. To store the cardinality of each block we would need 2 bits per block, for a total of 16 bits. Then, the blocks containing all-zeros or all-ones is encoded implicitly, while the blocks with *C = 1* and *C = 2* need 2 additional bits each. This sums up to 20 bits used to represent our uncompressed 24-bit bitmap, with a saving of 2 bits or ~16% of the initial size. 
 
 ## On-the-fly generation of ordered binary permutations
 
@@ -131,7 +128,7 @@ Since most of the times we are interested in a single bit of the block and block
 
 ## Conclusion
 
-I feel this is a nice and elegant way to compress a bitmap while keeping the ability to access it in constant time as it on-the-fly decoding only depends on the the block size which is fixed. I am also sure that further improvements for faster decoding can be possible with the use of SIMD instructions.
+I feel this is a nice and elegant way to compress a bitmap while keeping the ability to decode a block in constant time as it on-the-fly decoding only depends on the the block size which is fixed. I am also sure that further improvements for faster decoding can be possible with the use of SIMD instructions.
 
 Feel free to get in touch if you want to share any feedback or have any ideas about the topic and would like to dig more into it. 
 
