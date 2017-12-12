@@ -12,7 +12,7 @@ image: /uploads/binary-code.png
 
 A bitmap, also referred to as bit-vector or bit-array, is a sequence of *0s* and *1s* which typically encodes a more complex object. 
 
-A common example of this is a set of numbers where each of the elements are indicated as set bits in a bitmap of length equal to the greatest element plus one (as we count from zero), also commonly referred as the *universe*. As an example, the set `{3,5,21,4,23}` can be represented as <kbd>101000000001000000011000</kbd>, where - counting right to left - we have the 1-bit at the corresponding positions of the elements in the initial set.
+A common example of this is a set of numbers where each of the elements are indicated as set bits in a bitmap of length equal to the greatest element plus one (as we count from zero), also commonly referred as the *universe*. As an example, the set `{3,5,21,4,23,12}` can be represented as <kbd>101000000001000000111000</kbd>, where - counting right to left - we have the 1-bit at the corresponding positions of the elements in the initial set.
 
 The importance of bitmaps is irrefutable, this is why I recently started investigating which are the most effective techniques used to compress them. 
 Being able to reduce their memory usage means being able to store more data or, possibly, fit it in a lower level of the cache hierarchy which immediately translates to faster access. 
