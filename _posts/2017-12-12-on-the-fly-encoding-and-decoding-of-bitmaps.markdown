@@ -5,6 +5,7 @@ tags:
     - compression 
     - bitmaps
     - bitvector
+image: /uploads/binary-code.png
 ---
 ![binary-code]({{ site.url }}/uploads/binary-code.png){:class="img-responsive"}
 
