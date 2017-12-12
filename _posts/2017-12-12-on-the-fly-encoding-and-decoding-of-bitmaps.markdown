@@ -129,7 +129,7 @@ uint64_t decode_offset(uint64_t block_size, uint64_t count, uint64_t offset) {
 
 Since most of the times we are interested in a single bit of the block and blocks can be quite long and so slower to decode, we can perform two forms of optimization. The former is to stop the iteration when we reach the given position, the latter is to perform a binary search instead of the linear scan we already described. The combination of the two solutions is ideal, indeed a linear scan is still faster when the position we are interested in is within the first $$block\_size \cdot \log_2(block\_size)$$ elements.
 
-### Conclusion
+## Conclusion
 
 I feel this is a nice and elegant way to compress a bitmap while keeping the ability to access it in constant time as it on-the-fly decoding only depends on the the block size which is fixed. I am also sure that further improvements for faster decoding can be possible with the use of SIMD instructions.
 
