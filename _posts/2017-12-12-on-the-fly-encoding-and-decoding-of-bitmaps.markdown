@@ -1,5 +1,6 @@
 ---
 title: On-the-fly encoding and decoding of bitmaps
+description: The importance of bitmaps is irrefutable, this is why I recently started investigating which are the most effective techniques used to compress them. Being able to reduce their memory usage means being able to store more data or, possibly, fit it in a lower level of the cache hierarchy which immediately translates to faster access.
 layout: post
 tags: 
     - compression 
