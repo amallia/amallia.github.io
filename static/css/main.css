@@ -9,6 +9,7 @@ body {
   height: 100%;
   background-color: #fff;
   font-family: 'Source Sans Pro', sans-serif;
+  font-size: 18px !important;
   /* The html and body elements cannot have any padding or margin. */
   border-top: 3px solid #27A822;
 }
@@ -93,10 +94,13 @@ body {
 /* Custom page CSS
 -------------------------------------------------- */
 
+ul li {
+  line-height: 40px;
+}
 
 .container {
   width: auto;
-  max-width: 800px;
+  max-width: 1024px;
   text-align: center;
 }
 .wide-container {
@@ -189,7 +193,6 @@ body {
 
 .talk-title{
   font-weight: bold;
-
 }
 /* Footer
 -------------------------------------------------- */
