@@ -206,6 +206,14 @@ ul li {
 div.footer{
   border-bottom: 5px solid #27A822;;
 }
+.image-wrapper {
+    text-align: center;
+}
+
+.image-wrapper .image-caption {
+    color: #aaa;
+    margin-top: 5px;
+}
 /* Set the fixed height of the footer here */
 /*.footer {
   height: 50px;
