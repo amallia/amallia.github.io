@@ -56,7 +56,7 @@ Elias-Fano is a very effective encoding algorithm as it allows to randomly acces
 
 ## Implementations 
 
-I would like to point out my Golang implementation (https://github.com/amallia/go-ef) of Elias-Fano, which is still in early stage. Feel free to get involved in the development :wink:
+I would like to point out my Golang implementation (https://github.com/amallia/go-ef) of Elias-Fano, which is still in early stage. Feel free to get involved in the development.
 
 A very good implementation is the one from Facebook present in Folly (https://github.com/facebook/folly/blob/master/folly/experimental/EliasFanoCoding.h).
 
