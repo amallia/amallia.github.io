@@ -1,7 +1,7 @@
 ---
 title: Sorted integers compression with Elias-Fano encoding
 layout: post
-description: 
+description: This post is about compression of monotone non-decreasing integers lists by using Elias-Fano encoding.
 tags: 
     - compression
     - elias-fano
