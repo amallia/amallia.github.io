@@ -27,7 +27,7 @@ It is constructed starting from and empty bit-vector, we add a 0 as a stop bit f
 
 {% include image.html img="uploads/Elias-Fano.png" title="Elias-Fano" caption="Figure 1: An example of Elias-Fano encoding of a sorted integer sequence." %}
 
-As an example, lets take the sorted list of `{2,3,5,7,11,13,24}` as shown in Figure 1. In this case we know that $m$ (the universe of the list) is equal to 24 and to represent all the elements in fixed-length binary we need 5 bits per element. 
+As an example, lets take the sorted list of `{2,3,5,7,11,13,24}` as shown in Figure 1. In this case we know that *m* (the universe of the list) is equal to 24 and to represent all the elements in fixed-length binary we need 5 bits per element. 
 Then we want to split the binary representation of each element in two parts, the higher and the lower. Since we have 7 elements in total, we will use 3 bits for the higher part and 2 for the lower one as explained previously. If we consider `2 => 0b00010`  we will have `000` and `10` respectively.
 We repeat this process for every element of the list and we concatenate all the lower parts together. 
 Regarding the higher bits, since we use 3 bits per element we can imagine to have $$2^3$$ buckets and we associate a counter to each bucket corresponding to the cardinality of that bucket. For 2 we will increment the `000` bucket. To the same bucket goes 3, while 5 will increment `001` and so on and so forth. There might be cases where the counter of the bucket is equal to zero, as it is for `100` in Figure 1.
@@ -37,7 +37,7 @@ The final Elias-Fano encoding is obtained by concatenating higher and lower bits
 
 ## Query
 
-Now, we show how to get an element given the information we have. Interestingly, with this type of encoding, we can have random access for both Access and NextGEQ operations in logarithmic time.
+Now, we show how to get an element given the information we have. Interestingly, with this type of encoding, we can have random access for both Access and NextGEQ operations in nearly constant time.
 
 ### Access
 
