@@ -12,6 +12,9 @@ body {
   font-size: 18px !important;
   /* The html and body elements cannot have any padding or margin. */
   border-top: 3px solid #27A822;
+
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 /* Wrapper for page content to push down footer */
 #wrap {
