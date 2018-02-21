@@ -30,9 +30,15 @@ A binary representation of a non-negative integer *x* is split into groups of of
 ### Encoding and decoding in code
 
 ```cpp
-void encodeVByte(std::vector<uint32_t> in, std::vector<uint8_t> out)
+size_t encodeVByte(uint64_t val, uint8_t* buf) {
 {
-
+  uint8_t* p = buf;
+  while (val >= 128) {
+    *p++ = 0x80 | (val & 0x7f);
+    val >>= 7;
+  }
+  *p++ = uint8_t(val);
+  return size_t(p - buf);
 }
 ```
 
@@ -62,12 +68,18 @@ https://upscaledb.com/blog/0009-32bit-integer-compression-algorithms.html
 
 ## MaskedVByte and StreamVByte
 
-More recently Daniel Lemire et al. come up with new ideas regarding vectorization of the VByte decoding process. 
+More recently Daniel Lemire et al. come up with new ideas regarding vectorization of the VByte decoding process [^fnMasked] [^fnStream]. 
 
 ## Benchmarks
 
 ### Gov2 dataset
+I performed my experiments on  Gov2 dataset.
 
+Gov2 is the TREC 2004 Terabyte Track test collection, consisting of 25 million .gov sites crawled in early 2004; the documents are truncated to 256 kB.
+
+For each document in the collection the body text was extracted using Apache Tika2, and the words lowercased and stemmed using the Porter2 stemmer; no stopwords were removed. The docIds were assigned according to the lexicographic
+order of their URLs. The following table reports the basic
+statistics for the collection.
 
 |:--------- | -------------:|
 | Documents &nbsp;&nbsp;| 24,622,347    |
@@ -105,3 +117,10 @@ More recently Daniel Lemire et al. come up with new ideas regarding vectorizatio
 
 
 ## Conclusion
+
+
+## References
+
+[^fnMasked]: Daniel Lemire and Nathan Kurz and Christoph Rupp. 2017. Stream VByte: Faster Byte-Oriented Integer Compression. CoRR. http://arxiv.org/abs/1709.08990.
+
+[^fnStream]: Daniel Lemire and Nathan Kurz and Christoph Rupp. 2018. Stream VByte: Faster byte-oriented integer compression. Information Processing Letters, 130.
