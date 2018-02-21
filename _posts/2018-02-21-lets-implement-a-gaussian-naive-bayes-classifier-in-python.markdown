@@ -6,7 +6,7 @@ tags:
     - naive-bayes-classifier
     - algorithms
 layout: post
-image: /uploads/ML.png
+image: /uploads/ML.jpg
 ---
 
 ![machine-learning]({{ site.url }}/uploads/ML.jpg){:class="img-responsive center-block"}
