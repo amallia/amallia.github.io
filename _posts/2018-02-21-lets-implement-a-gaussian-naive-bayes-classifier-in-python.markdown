@@ -253,6 +253,6 @@ On the other hand, it has not been engineered too much as its scope was only to 
 
 ## References
 [^fnAlpaydin]: Ethem Alpaydin. 2014. Introduction to Machine Learning. The MIT Press.
-[^fnNormalDistribution]: https://en.wikipedia.org/wiki/Normal_distribution
-[^fnPandas]: https://pandas.pydata.org/
+[^fnNormalDistribution]: [https://en.wikipedia.org/wiki/Normal_distribution](https://en.wikipedia.org/wiki/Normal_distribution)
+[^fnPandas]: [https://pandas.pydata.org/](https://pandas.pydata.org/)
 
