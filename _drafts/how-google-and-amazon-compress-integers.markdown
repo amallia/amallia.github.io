@@ -8,9 +8,10 @@ tags:
     - Varint
     - Variable byte
 layout: post
-image: /uploads/*.png
+image: /uploads/integers-compression.jpg
 
 ---
+![integers-compression]({{ site.url }}/uploads/integers-compression.jpg){:class="img-responsive"}
 
 I have been blogging about integer compression for a while now, I hope you find this topic particularly interesting as I do. Anyway, it is definitely a research area, whose improvements are appealing even for big companies like Google and Amazon. 
 
@@ -30,25 +31,79 @@ A binary representation of a non-negative integer *x* is split into groups of of
 ### Encoding and decoding in code
 
 ```cpp
-size_t encodeVByte(uint64_t val, uint8_t* buf) {
+size_t encodeVByte(uint64_t val, uint8_t* out) {
 {
-  uint8_t* p = buf;
+  uint8_t* p = out.data();
   while (val >= 128) {
     *p++ = 0x80 | (val & 0x7f);
     val >>= 7;
   }
   *p++ = uint8_t(val);
-  return size_t(p - buf);
+  return size_t(p - out.data());
 }
 ```
 
 ```cpp
-void decodeVByte(std::vector<uint8_t> in, std::vector<uint32_t> out)
+uint64_t decodeVByte(std::vector<uint8_t> in)
 {
+  int8_t* p = reinterpret_cast<int8_t*>(data.data());
+  uint64_t val = 0;
+  int64_t b = *p++;
+  do {
+    val = (b & 0x7f);        
+    if (b >= 0) {
+      break;
+    }
+    b = *p++;
+    val |= (b & 0x7f) << 7;
+    if (b >= 0) {
+      break;
+    }
+    b = *p++;
+    val |= (b & 0x7f) << 14;
+    if (b >= 0) {
+      break;
+    }
+    b = *p++;
+    val |= (b & 0x7f) << 21;
+    if (b >= 0) {
+      break;
+    }
+    b = *p++;
+    val |= (b & 0x7f) << 28;
+    if (b >= 0) {
+      break;
+    }
+    b = *p++;
+    val |= (b & 0x7f) << 35;
+    if (b >= 0) {
+      break;
+    }
+    b = *p++;
+    val |= (b & 0x7f) << 42;
+    if (b >= 0) {
+      break;
+    }
+    b = *p++;
+    val |= (b & 0x7f) << 49;
+    if (b >= 0) {
+      break;
+    }
+    b = *p++;
+    val |= (b & 0x7f) << 56;
+    if (b >= 0) {
+      break;
+    }
+    b = *p++;
+    val |= (b & 0x01) << 63;
+    if (b >= 0) {
+      break;
+    }
+  } while(false); 
 
+  return val;
 }
 ```
-
 
 ## Varint-GB
 
@@ -60,9 +115,10 @@ Proto buffers: https://developers.google.com/protocol-buffers/docs/encoding
 
 ## Varint-G8IU
 
-Stepanov et al. [] present a variant of variable byte (called Varint-G8IU) which exploits SIMD operations of modern CPUs to further speed up decoding.
+Stepanov et al. [^fnVarintG8IU] present a variant of variable byte (called Varint-G8IU) which exploits SIMD operations of modern CPUs to further speed up decoding.
 
-Amazon Patent: https://www.google.com/patents/US20120221539
+This scheme was patented by Rose, Stepanov et al. ([US20120221539A1](https://patents.google.com/patent/US20120221539)) Amazon....
+
 http://www.amazontechon.com/locale/ro/pdfs/0_3_Integer%20encodings_new%20template.pdf
 https://upscaledb.com/blog/0009-32bit-integer-compression-algorithms.html
 
@@ -72,9 +128,14 @@ More recently Daniel Lemire et al. come up with new ideas regarding vectorizatio
 
 ## Benchmarks
 
-### Gov2 dataset
-I performed my experiments on  Gov2 dataset.
+All the benchmarks are implemented in C++11 and compiled with GCC 5.4.0 with the highest optimization settings.
+The tests are performed on a machine with 8 Intel Core i7-4770K Haswell cores clocked at 3.50GHz, with 32GiB RAM, running Linux 4.4.0. 
+The indexes are saved to disk after construction, and memory mapped to be queried, so that there are no hidden space costs due to loading of additional data structures in memory.
 
+All my experiments are executed on an Intel Core i7-4770 CPU (Haswell) with 32 GB memory (DDR3-1600 with double-channel). The CPU has 4 cores of 3.40 GHz each, and 8 MB of L3 cache. Turbo Boost is disabled on the test machine, and the processor is set to run at its highest clock speed. The computer runs Linux Ubuntu 14.04. We report wall-clock time.
+
+### Gov2 dataset
+Experiments have been performed on Gov2 dataset.
 Gov2 is the TREC 2004 Terabyte Track test collection, consisting of 25 million .gov sites crawled in early 2004; the documents are truncated to 256 kB.
 
 For each document in the collection the body text was extracted using Apache Tika2, and the words lowercased and stemmed using the Porter2 stemmer; no stopwords were removed. The docIds were assigned according to the lexicographic
@@ -88,32 +149,47 @@ statistics for the collection.
 
 ### Space Usage
 
+Quite surprisingly the encoding which uses less space is MaskedVByte. 
 
-| Encoding    | Gov2     |
-|:------------| --------:|
-| Varint-GB   | 15.06 GB |
-| Varint-G8IU | 14.06 GB |
-| MaskedVByte | 12.38 GB |
-| StreamVByte &nbsp;&nbsp;| 15.06 GB |
+| Encoding                            | Space    |
+|:------------------------------------|:-------- |
+| Varint-GB                           | 15.06 GB |
+| Varint-G8IU                         | 14.06 GB |
+| MaskedVByte                         | 12.38 GB |
+| StreamVByte &emsp;&emsp;&emsp;&emsp;| 15.06 GB |
+
+
+### Sequential decoding
+
+
+| Encoding                             | Time
+|:------------------------------------ |:--------------------- | 
+| VarintGB                             | 3.2 ns/posting (18 s) |
+| Varint-G8IU                          | 2.9 ns/posting (16 s) |
+| MaskedVByte                          | 3.2 ns/posting (18 s) |
+| StreamVByte &emsp;&emsp;&emsp;&emsp; | 4.0 ns/posting (22 s) |
+
+
 
 ### OR queries
 
-| Encoding    | Gov2    |
-|:----------- | -------:|
-| VarintGB    | 35.3 ms |
-| Varint-G8IU | 34.7 ms |
-| MaskedVByte &nbsp;&nbsp;| 38.9 ms |
-| StreamVByte | 38.3 ms |
+| Encoding                            | Time    |
+|:----------------------------------- |:------- |
+| VarintGB                            | 35.3 ms |
+| Varint-G8IU                         | 34.7 ms |
+| MaskedVByte &emsp;&emsp;&emsp;&emsp;| 38.9 ms |
+| StreamVByte                         | 38.3 ms |
 
 
 ### Block-Max WAND (BMW)
+Ding and Suel [^fnBmw]
 
-| Encoding    | Gov2     |
-|:----------- | --------:|
-| VarintGB    | 1.558 ms |
-| Varint-G8IU | 1.509 ms |
-| MaskedVByte &nbsp;&nbsp;| 1.607 ms |
-| StreamVByte | 1.855 ms |
+| Encoding                            | Time     |
+|:----------------------------------- |:-------- |
+| VarintGB                            | 1.558 ms |
+| Varint-G8IU                         | 1.509 ms |
+| MaskedVByte &emsp;&emsp;&emsp;&emsp;| 1.607 ms |
+| StreamVByte                         | 1.855 ms |
 
 
 ## Conclusion
@@ -121,6 +197,11 @@ statistics for the collection.
 
 ## References
 
-[^fnMasked]: Daniel Lemire and Nathan Kurz and Christoph Rupp. 2017. Stream VByte: Faster Byte-Oriented Integer Compression. CoRR. http://arxiv.org/abs/1709.08990.
+[^fnMasked]: Jeff Plaisance, Nathan Kurz, Daniel Lemire, Vectorized VByte Decoding, International Symposium on Web Algorithms 2015, 2015. http://arxiv.org/abs/1503.07387.
 
-[^fnStream]: Daniel Lemire and Nathan Kurz and Christoph Rupp. 2018. Stream VByte: Faster byte-oriented integer compression. Information Processing Letters, 130.
+[^fnStream]: Daniel Lemire, Nathan Kurz, Christoph Rupp, Stream VByte: Faster Byte-Oriented Integer Compression, Information Processing Letters 130, 2018.
+
+[^fnVarintG8IU]: Alexander A. Stepanov, Anil R. Gangolli, Daniel E. Rose, Ryan J. Ernst, and Paramjit S. Oberoi. 2011. SIMD-based decoding of posting lists. In Proceedings of the 20th ACM international conference on Information and knowledge management (CIKM 11).
+
+[^fnBmw]: Shuai Ding and Torsten Suel. 2011. Faster top-k document retrieval using block-max indexes. In Proceedings of the 34th international ACM SIGIR conference on Research and development in Information Retrieval.
+
