@@ -6,7 +6,10 @@ tags:
     - Nearest Neighbor
     - regression
 layout: post
-image: /uploads/k-NN.jpg
+image:
+  path: /uploads/k-NN.jpg
+  height: 800
+  width: 533
 ---
 
 ![k-NN]({{ site.url }}/uploads/k-NN.jpg){:class="img-responsive center-block"}
