@@ -15,6 +15,13 @@ title: Antonio Mallia's Blog
             <p> <small><u>Abstract</u>: Query processing is one of the main bottlenecks in large-scale search engines. Retrieving the top k most relevant documents for a given query can be extremely expensive, as it involves scoring large amounts of documents. Several dynamic pruning techniques have been introduced in the literature to tackle this problem, such as BlockMaxWAND, which splits the inverted index into constant- sized blocks and stores the maximum document-term scores per block; this information can be used during query execution to safely skip low-score documents, producing many-fold speedups over exhaustive methods. We introduce a refinement for BlockMaxWAND that uses variable- sized blocks, rather than constant-sized. We set up the problem of deciding the block partitioning as an optimization problem which maximizes how accurately the block upper bounds represent the underlying scores, and describe an efficient algorithm to find an approximate solution, with provable approximation guarantees. rough an extensive experimental analysis we show that our method significantly outperforms the state of the art roughly by a factor 2×. We also introduce a compressed data structure to represent the additional block information, providing a compression ratio of roughly 50%, while incurring only a small speed degradation, no more than 10% with respect to its uncompressed counterpart.</small></p>
             <a href="{{ site.url }}/uploads/SIGIR17a.pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
         </h5>
+        <h5>
+            <span class="paper-authors">Melanie Tosik, Antonio Mallia, Kedar Gangopadhyay.</span>
+            <span class="paper-title">Debunking Fake News One Feature at a Time.</span>
+            <span class="paper-publisher">CoRR abs/1808.02831. 2018</span>
+            <p> <small><u>Abstract</u>: Identifying the stance of a news article body with respect to a certain headline is the first step to automated fake news detection. In this paper, we introduce a 2-stage ensemble model to solve the stance detection task. By using only hand-crafted features as input to a gradient boosting classifier, we are able to achieve a score of 9161.5 out of 11651.25 (78.63%) on the official Fake News Challenge (Stage 1) dataset. We identify the most useful features for detecting fake news and discuss how sampling techniques can be used to improve recall accuracy on a highly imbalanced dataset.</small></p>
+            <a href="https://arxiv.org/pdf/1808.02831.pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
+        </h5>
 	</div>
   </div>
 </div>
