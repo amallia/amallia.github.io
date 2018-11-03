@@ -9,6 +9,7 @@ plugins:
   - jekyll-seo-tag
   - jekyll-paginate
   - jemoji
+  - jekyll-sitemap
 port: 3000
 safe: true
 
