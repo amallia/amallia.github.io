@@ -7,6 +7,15 @@ title: Antonio Mallia's Blog
 <h3>Publications</h3>
   <div class="panel panel-default">
     <div class="panel-body">
+	<h5>
+            <span class="paper-authors">Antonio Mallia, Michal Siedlaczek, Torsten Suel, Mohamed Zahran.</span>
+            <span class="paper-title">GPU-Accelerated Decoding of Integer Lists.</span>
+            <span class="paper-publisher">In Proceedings of the 28th ACM International Conference on Information and Knowledge Management (CIKM). 2019</span>
+            <p> <small><u>Abstract</u>:
+	    An inverted index is the basic data structure used in most current large-scale information retrieval systems. It can be modeled as a collection of sorted sequences of integers. Many compression techniques for inverted indexes have been studied in the past, with some of them reaching tremendous decompression speeds through the use of SIMD instructions available on modern CPUs. While there has been some work on query processing algorithms for Graphics Processing Units (GPUs), little of it has focused on how to efficiently access compressed index structures, and we see some potential for significant improvements in decompression speed.
+	    In this paper, we describe and implement two encoding schemes for index decompression on GPU architectures. Their format and decoding algorithm is adapted from existing CPU-based compression methods to exploit the execution model and memory hierarchy offered by GPUs. We show that our solutions, GPU-BP and GPU-VByte, achieve significant speedups over their already carefully optimized CPU counterparts.</small></p>
+            <a href="{{ site.url }}/uploads/CIKM19.pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
+        </h5>    
         <h5>
             <span class="paper-authors">Antonio Mallia, Michal Siedlaczek, Joel Mackenzie and Torsten Suel.</span>
             <span class="paper-title">PISA: Performant Indexes and Search for Academia.</span>
