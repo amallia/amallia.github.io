@@ -218,6 +218,62 @@ div.footer{
     color: #aaa;
     margin-top: 5px;
 }
+.btn.btn-sm {
+    padding: 5px .4rem;
+    font-size: .6rem;
+    border-radius: .2rem;
+}
+
+.btn-outline-primary {
+    color: #27A822;
+    border-color: #27A822;
+}
+.btn:hover {
+    background: #27A822 !important;
+    color: white !important;
+    text-decoration: none !important;
+    transition: color .6s ease !important;
+    transition: background .6s ease !important;
+}
+.modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 1rem;
+    border-bottom: 1px solid #dee2e6;
+    border-top-left-radius: calc(.3rem - 1px);
+    border-top-right-radius: calc(.3rem - 1px);
+}
+.modal-title {
+    margin-bottom: 0;
+    line-height: 1;
+}
+.hljs {
+    display: block;
+    overflow-x: auto;
+    padding: .5em;
+    color: #333;
+    background: #f8f8f8;
+}
+.modal-header .close {
+    padding: 1rem;
+    margin: -1rem -1rem -1rem auto;
+}
+.close {
+    float: right;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    opacity: .5;
+}
+.modal-content pre {
+    margin: 0;
+    background-color: #f8f8f8;
+    border-color: #f8f8f8;
+    font-size: .7rem;
+}
 /* Set the fixed height of the footer here */
 /*.footer {
   height: 50px;
