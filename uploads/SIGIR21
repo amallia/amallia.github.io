@@ -1,0 +1,6 @@
+@inproceedings{mallia2021deepimpact,
+  title={Learning Passage Impacts for Inverted Indexes},
+  author={Antonio Mallia and Omar Khattab and Torsten Suel and Nicola Tonellotto},
+  booktitle={Proceedings of the 44th International ACM SIGIR Conference on Research and Development in Information Retrieval},
+  year={2021}
+}
