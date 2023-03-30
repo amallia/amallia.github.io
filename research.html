@@ -7,6 +7,16 @@ title: Antonio Mallia's Blog
   <div class="panel panel-default">
     <div class="panel-body">
     <h5>
+            <span class="paper-authors">Gabriel Tolosa, <u>Antonio Mallia</u>.</span>
+            <span class="paper-title">Many are Better than One: Algorithm Selection for Faster Top-K Retrieval.</span>
+            <span class="paper-publisher">In Information Processing & Management(IPM) 2023</span>
+            <p> <small><u>Abstract</u>: 
+Large-scale search engines have become a fundamental tool to efficiently access information on the Web. Typically, users expect answers in sub-second time frames, which demands highly efficient algorithms to traverse the data structures to return the top-k results. Despite different top-k algorithms that avoid processing all postings for all query terms, finding one algorithm that performs the fastest on any query is not always possible. The fastest average algorithm does not necessarily perform the best on all queries when evaluated on a per-query basis. To overcome this challenge, we propose to combine different state-of-the-art disjunctive top-k query processing algorithms to minimize the execution time by selecting the most promising one for each query. We model the selection step as a classification problem in a machine-learning setup. We conduct extensive experimentation and compare the results against state-of-the-art baselines using standard document collections and query sets. On ClueWeb12, our proposal shows a speed-up of up to 1.20x for non-blocked index organizations and 1.19x for block-based ones. Moreover, tail latencies are reduced showing proportional improvements on average, but a resulting dramatic decrease in latency variance. Given these findings, the proposed approach can be easily applied to existing search infrastructures to speed up query processing and reduce resource consumption, positively impacting providers’ operative costs.
+            </small></p>
+	    <a class="btn btn-outline-primary btn-sm" href="{{ site.url }}/uploads/IPM23.pdf" target="_blank" rel="noopener"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> PDF</a>
+            <a class="btn btn-outline-primary btn-sm js-cite-modal" data-filename="/uploads/IPM23.bib"><i class="fa fa-quote-right"></i> Cite</a>
+    </h5> 
+    <h5>
             <span class="paper-authors">Joel Mackenzie, <u>Antonio Mallia</u>, Alistair Moffat, Matthias Petri.</span>
             <span class="paper-title">Accelerating Learned Sparse Indexes Via Term Impact Decomposition.</span>
             <span class="paper-publisher">In Findings of the Association for Computational Linguistics: EMNLP 2022</span>
