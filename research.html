@@ -7,6 +7,16 @@ title: Antonio Mallia's Blog
   <div class="panel panel-default">
     <div class="panel-body">
     <h5>
+            <span class="paper-authors">Xueguang Ma, Hengxin Fun, Xusen Yin, <u>Antonio Mallia</u>, Jimmy Lin.</span>
+            <span class="paper-title">Enhancing Sparse Retrieval via Unsupervised Learning.</span>
+            <span class="paper-publisher">In Proceedings of the 1st International ACM SIGIR Conference on Information Retrieval in the Asia Pacific (SIGIR-AP) 2023</span>
+            <p> <small><u>Abstract</u>: 
+Recent work has shown that neural retrieval models excel in text ranking tasks in a supervised setting when given large amounts of manually labeled training data. However, it remains an open question how one might train effective unsupervised retrieval models that are unequivocally better than lexical-matching baselines such as BM25. While some progress has been made in unsupervised dense retrieval models within a bi-encoder architecture, unsupervised sparse retrieval models remain unexplored. In this work, we propose BM26, to our knowledge the first such model. BM26 is trained in an unsupervised manner without the need for any human relevance judgments but keeps the same retrieval paradigm as BM25. Evaluations across multiple modern test collections, including MS MARCO, NaturalQuestions, TriviaQA, and BEIR, show that BM26 alone outperforms Contriever, the current state-of-the-art unsupervised dense retriever, in general, and performs on par with BM25. We further demonstrate two promising avenues to enhance existing lexical retrieval systems using such unsupervised lexical retrieval models: 1) Enhancing the BM25 system by hybrid with BM26 based on simple vector concatenation (that we dub "BM51"), demonstrating a significant and consistent improvement over BM25 alone, while remains unsupervised system. 2) Enhancing the supervised lexical retrieval model with improved initialization using BM26, as seen with the SPLADE model, generating significant improvements in both in-domain and zero-shot retrieval effectiveness.
+            </small></p>
+	    <a class="btn btn-outline-primary btn-sm" href="{{ site.url }}/uploads/SIGIR-AP23.pdf" target="_blank" rel="noopener"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> PDF</a>
+            <a class="btn btn-outline-primary btn-sm js-cite-modal" data-filename="/uploads/SIGIR-AP23.bib"><i class="fa fa-quote-right"></i> Cite</a>
+    </h5> 
+    <h5>
             <span class="paper-authors">Gabriel Tolosa, <u>Antonio Mallia</u>.</span>
             <span class="paper-title">Many are Better than One: Algorithm Selection for Faster Top-K Retrieval.</span>
             <span class="paper-publisher">In Information Processing & Management(IPM) 2023</span>
