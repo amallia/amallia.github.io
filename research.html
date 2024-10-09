@@ -7,6 +7,14 @@ title: Antonio Mallia's Blog
   <div class="panel panel-default">
     <div class="panel-body">
     <h5>
+            <span class="paper-authors">Soyuj Basnet, Jerry Gou, <u>Antonio Mallia</u>, Torsten Suel.</span>
+            <span class="paper-title">DeeperImpact: Optimizing Sparse Learned Index Structures.</span>
+            <span class="paper-publisher">In Proceedings of the 3rd Workshop on Reaching Efficiency in Neural Information Retrieval, ReNeuIR (at SIGIR). 2024</span>
+            <p> <small><u>Abstract</u>: A lot of recent work has focused on sparse learned indexes that use deep neural architectures to significantly improve retrieval quality while keeping the efficiency benefits of the inverted index. While such sparse learned structures achieve effectiveness far beyond those of traditional inverted index-based rankers, there is still a gap in effectiveness to the best dense retrievers, or even to sparse methods that leverage more expensive optimizations such as query expansion and query term weighting. We focus on narrowing this gap by revisiting and optimizing DeepImpact, a sparse retrieval approach that uses DocT5Query for document expansion followed by a BERT language model to learn impact scores for document terms. We first reinvestigate the expansion process and find that the recently proposed Doc2Query -- query filtration does not enhance retrieval quality when used with DeepImpact. Instead, substituting T5 with a fine-tuned Llama 2 model for query prediction results in a considerable improvement. Subsequently, we study training strategies that have proven effective for other models, in particular the use of hard negatives, distillation, and pre-trained CoCondenser model initialization. Our results substantially narrow the effectiveness gap with the most effective versions of SPLADE.</small></p>
+	    <a class="btn btn-outline-primary btn-sm" href="https://arxiv.org/pdf/2405.17093" target="_blank" rel="noopener"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> PDF</a>
+            <a class="btn btn-outline-primary btn-sm js-cite-modal" data-filename="/uploads/RENEUIR24.bib"><i class="fa fa-quote-right"></i> Cite</a>
+    </h5> 
+    <h5>
             <span class="paper-authors"><u>Antonio Mallia</u>, Torsten Suel, Nicola Tonellotto.</span>
             <span class="paper-title">Faster Learned Sparse Retrieval with Block-Max Pruning.</span>
             <span class="paper-publisher">In Proceedings of the 47th International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR). 2024</span>
